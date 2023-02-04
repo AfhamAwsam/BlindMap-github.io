@@ -1,14 +1,14 @@
-// Get a reference to the image element
+// Get references to the image and form elements
 const image = document.getElementById("map");
-
-// Get a reference to the form element
 const form = document.querySelector("form");
 
-// Get a reference to the answer input element
+// Get references to the answer input and result elements
 const answerInput = document.getElementById("answer");
-
-// Get a reference to the result element
 const result = document.getElementById("result");
+
+// Get references to the correct and incorrect count elements
+const correctCount = document.getElementById("correct");
+const incorrectCount = document.getElementById("incorrect");
 
 // Define an array of image file names and corresponding answers
 const maps = [
@@ -17,8 +17,11 @@ const maps = [
   { file: "map3.png", answer: "Brazil" },
   { file: "map4.png", answer: "Canada" },
   { file: "map5.png", answer: "China" },
-  { file: "map6.png", answer: "Mexico"},
-  { file: "map7.png", answer: "Singapore"}
+  { file: "map6.png", answer: "USA" },
+  { file: "map7.png", answer: "Indonesia" },
+  { file: "map8.png", answer: "India" },
+  { file: "map9.png", answer: "Russia" },
+  { file: "map10.png", answer: "Italy" }
 ];
 
 // Function to randomly select an image and answer from the maps array
@@ -33,10 +36,14 @@ function checkAnswer(event) {
   const answer = answerInput.value.trim().toLowerCase();
   if (answer === currentMap.answer.toLowerCase()) {
     result.textContent = "Correct!";
+    correctCount.textContent = parseInt(correctCount.textContent) + 1;
   } else {
     result.textContent = "Incorrect. The correct answer is: " + currentMap.answer;
+    incorrectCount.textContent = parseInt(incorrectCount.textContent) + 1;
   }
   answerInput.value = "";
+  currentMap = getRandomMap();
+  image.src = "images/" + currentMap.file;
 }
 
 // Set the source of the image element and answer to a randomly selected map
